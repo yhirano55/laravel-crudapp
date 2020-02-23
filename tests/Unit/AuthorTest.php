@@ -44,4 +44,14 @@ class AuthorTest extends TestCase
     {
       $this->assertEquals('山田 太郎', $this->author->fullName());
     }
+
+    // @test
+    public function test_books()
+    {
+      factory(\App\Book::class, 3)->create([
+        'author_id' => $this->author->id
+      ]);
+
+      $this->assertEquals(3, $this->author->books()->count());
+    }
 }

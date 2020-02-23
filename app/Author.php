@@ -10,4 +10,9 @@ class Author extends Model
     {
       return "{$this->last_name} {$this->first_name}";
     }
+
+    public function books()
+    {
+      return $this->hasMany('App\Book');
+    }
 }
