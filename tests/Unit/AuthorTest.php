@@ -22,6 +22,12 @@ class AuthorTest extends TestCase
     }
 
     // @test
+    public function test_has_a_valid_factory()
+    {
+      $this->assertInstanceOf(\App\Author::class, $this->author);
+    }
+
+    // @test
     public function test_first_name()
     {
       $this->assertEquals('太郎', $this->author->first_name);
