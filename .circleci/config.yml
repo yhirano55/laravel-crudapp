@@ -41,6 +41,10 @@ jobs:
             - node_modules
 
       - run:
+          name: Run phpstan
+          command: ./vendor/bin/phpstan analyse
+
+      - run:
           name: Prepare the database
           command: |
             cp .env.example .env
