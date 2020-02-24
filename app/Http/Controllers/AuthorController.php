@@ -13,7 +13,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+      $authors = \App\Author::all();
+      return view('authors.index', ['authors' => $authors]);
     }
 
     /**
@@ -21,9 +22,9 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      return view('authors.create');
     }
 
     /**
@@ -34,7 +35,14 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $data = $request->validate([
+        'first_name' => 'required',
+        'last_name' => 'required',
+      ]);
+      $author = new \App\Author($data);
+      $author->save();
+
+      return redirect(route('authors.show', $author->id))->with('success', 'Author was successfully created.');
     }
 
     /**
@@ -45,7 +53,8 @@ class AuthorController extends Controller
      */
     public function show($id)
     {
-        //
+      $author = \App\Author::find($id);
+      return view('authors.show', ['author' => $author]);
     }
 
     /**
@@ -56,7 +65,8 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
-        //
+      $author = \App\Author::find($id);
+      return view('authors.edit', ['author' => $author]);
     }
 
     /**
@@ -68,7 +78,15 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $data = $request->validate([
+        'first_name' => 'required',
+        'last_name' => 'required',
+      ]);
+      $author = \App\Author::find($id);
+      $author->fill($data);
+      $author->save();
+
+      return redirect(route('authors.show', $author->id))->with('success', 'Author was successfully updated.');
     }
 
     /**
@@ -79,6 +97,9 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $author = \App\Author::find($id);
+      $author->delete();
+
+      return redirect(route('authors.index'))->with('success', 'Author was successfully deleted.');
     }
 }
