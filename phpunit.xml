@@ -8,7 +8,9 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
+         executionOrder="random"
          processIsolation="false"
+         verbose="true"
          stopOnFailure="false">
     <testsuites>
         <testsuite name="Unit">
