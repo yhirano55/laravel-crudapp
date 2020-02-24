@@ -4,6 +4,24 @@
 <div class="container">
   <h1 class="h3">Authors List</h1>
 
+  <div class="card mb-3">
+    <div class="card-body">
+      <form action="{{ route('authors.index') }}" method="get">
+        <div class="form-row">
+          <div class="col-auto">
+            <input type="text" name="first_name" value="{{ $first_name }}" class="form-control" placeholder="first name" />
+          </div>
+          <div class="col-auto">
+            <input type="text" name="last_name" value="{{ $last_name }}" class="form-control" placeholder="last name" />
+          </div>
+          <div class="col-auto">
+            <input type="submit" value="search" class="btn btn-primary" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>

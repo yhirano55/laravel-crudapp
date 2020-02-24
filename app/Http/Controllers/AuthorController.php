@@ -11,10 +11,25 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $authors = \App\Author::paginate(5);
-      return view('authors.index', ['authors' => $authors]);
+      $first_name = $request->input('first_name');
+      $last_name = $request->input('last_name');
+      $query = \App\Author::query();
+
+      if (!empty($first_name)) {
+        $query->where('first_name', 'like', '%'.$first_name.'%');
+      }
+
+      if (!empty($last_name)) {
+        $query->where('last_name', 'like', '%'.$last_name.'%');
+      }
+
+      $authors = $query->paginate(5);
+      return view('authors.index')
+        ->with('authors', $authors)
+        ->with('first_name', $first_name)
+        ->with('last_name', $last_name);
     }
 
     /**
