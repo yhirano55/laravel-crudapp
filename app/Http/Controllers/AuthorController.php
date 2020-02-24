@@ -13,7 +13,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-      $authors = \App\Author::all();
+      $authors = \App\Author::paginate(5);
       return view('authors.index', ['authors' => $authors]);
     }
 

@@ -39,6 +39,8 @@
     </tbody>
   </table>
 
+  {{ $authors->links() }}
+
   <hr>
 
   <p><a href="{{ route('authors.create') }}" class="btn btn-primary">Create new author</a></p>
