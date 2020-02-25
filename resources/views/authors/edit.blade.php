@@ -20,12 +20,12 @@
 
     <div class="form-group">
       <label for="first_name">first name</label>
-      <input type="text" name="first_name" value="{{ $author->first_name }}" class="form-control" />
+      <input type="text" name="first_name" value="{{ old('first_name', $author->first_name) }}" class="form-control" />
     </div>
 
     <div class="form-group">
       <label for="last_name">last name</label>
-      <input type="text" name="last_name" value="{{ $author->last_name }}" class="form-control" />
+      <input type="text" name="last_name" value="{{ old('last_name', $author->last_name) }}" class="form-control" />
     </div>
 
     <input type="submit" value="Update Author" class="btn btn-primary" />

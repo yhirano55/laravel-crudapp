@@ -20,17 +20,17 @@
 
     <div class="form-group">
       <label for="title">title</label>
-      <input type="text" name="title" class="form-control" value="{{ $book->title }}" />
+      <input type="text" name="title" class="form-control" value="{{ old('title', $book->title) }}" />
     </div>
 
     <div class="form-group">
       <label for="summary">summary</label>
-      <textarea name="summary" class="form-control">{{ $book->summary }}</textarea>
+      <textarea name="summary" class="form-control">{{ old('summary', $book->summary) }}</textarea>
     </div>
 
     <div class="form-group">
       <label for="price">price</label>
-      <input type="number" name="price" class="form-control" value="{{ $book->price }}" />
+      <input type="number" name="price" class="form-control" value="{{ old('price', $book->price) }}" />
     </div>
 
     <div class="form-group">
@@ -38,7 +38,7 @@
       <select name="author_id" class="form-control">
         <option value="">選択してください</option>
         @foreach ($authors as $author)
-          <option value="{{ $author->id }}" {{ $author->id == $book->author->id ? 'selected' : null }}>{{ $author->fullName() }}</option>
+          <option value="{{ $author->id }}" {{ $author->id == old('author_id', $book->author->id) ? 'selected' : null }}>{{ $author->fullName() }}</option>
         @endforeach
       </select>
     </div>
