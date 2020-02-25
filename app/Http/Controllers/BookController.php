@@ -46,10 +46,10 @@ class BookController extends Controller
     public function store(Request $request)
     {
       $data = $request->validate([
-        'title' => 'required',
-        'summary' => 'required',
-        'price' => 'required',
-        'author_id' => 'required',
+        'title' => 'required|max:255',
+        'summary' => 'required|max:2000',
+        'price' => 'required|numeric',
+        'author_id' => 'required|exists:App\Author,id',
       ]);
       $book = new \App\Book($data);
       $book->save();
@@ -92,10 +92,10 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
       $data = $request->validate([
-        'title' => 'required',
-        'summary' => 'required',
-        'price' => 'required',
-        'author_id' => 'required',
+        'title' => 'required|max:255',
+        'summary' => 'required|max:2000',
+        'price' => 'required|numeric',
+        'author_id' => 'required|exists:App\Author,id',
       ]);
       $book = \App\Book::find($id);
       $book->fill($data);
