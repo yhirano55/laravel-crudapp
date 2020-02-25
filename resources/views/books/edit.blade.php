@@ -35,7 +35,12 @@
 
     <div class="form-group">
       <label for="author_id">author_id</label>
-      <input type="text" name="author_id" class="form-control" value="{{ $book->author_id }}" />
+      <select name="author_id" class="form-control">
+        <option value="">選択してください</option>
+        @foreach ($authors as $author)
+          <option value="{{ $author->id }}" {{ $author->id == $book->author->id ? 'selected' : null }}>{{ $author->fullName() }}</option>
+        @endforeach
+      </select>
     </div>
 
     <input type="submit" value="Update Book" class="btn btn-primary" />

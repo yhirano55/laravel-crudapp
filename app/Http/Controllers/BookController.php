@@ -33,7 +33,8 @@ class BookController extends Controller
      */
     public function create()
     {
-      return view('books.create');
+      $authors = \App\Author::all();
+      return view('books.create')->with('authors', $authors);
     }
 
     /**
@@ -77,7 +78,8 @@ class BookController extends Controller
     public function edit($id)
     {
       $book = \App\Book::find($id);
-      return view('books.edit', ['book' => $book]);
+      $authors = \App\Author::all();
+      return view('books.edit')->with('book', $book)->with('authors', $authors);
     }
 
     /**
