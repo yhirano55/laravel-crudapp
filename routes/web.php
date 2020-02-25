@@ -17,4 +17,5 @@ Route::get('/', function () {
 
 Route::resources([
   'authors' => 'AuthorController',
+  'books' => 'BookController',
 ]);

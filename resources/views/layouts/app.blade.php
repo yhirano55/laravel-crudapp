@@ -25,7 +25,7 @@
         <a class="nav-link" href="{{ route('authors.index') }}">Author</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Book</a>
+        <a class="nav-link" href="{{ route('books.index') }}">Book</a>
       </li>
     </ul>
   </div>
