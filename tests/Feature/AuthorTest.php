@@ -12,7 +12,7 @@ class AuthorTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_index()
+    public function testIndex()
     {
       $author = factory(\App\Author::class)->create();
 
@@ -26,13 +26,13 @@ class AuthorTest extends TestCase
         ->assertSee($author->fullName());
     }
 
-    public function test_create()
+    public function testCreate()
     {
       $response = $this->get('/authors/create');
       $response->assertStatus(200);
     }
 
-    public function test_store_with_valid()
+    public function testStoreWithValid()
     {
       $response = $this->post('/authors', [
         'first_name' => 'Taro',
@@ -51,7 +51,7 @@ class AuthorTest extends TestCase
         ->assertSee('Yamada Taro');
     }
 
-    public function test_store_with_invalid()
+    public function testStoreWithInvalid()
     {
       $this->withoutExceptionHandling();
 
@@ -74,14 +74,14 @@ class AuthorTest extends TestCase
       }
     }
 
-    public function test_edit()
+    public function testEdit()
     {
       $author = factory(\App\Author::class)->create();
       $response = $this->get("/authors/{$author->id}/edit");
       $response->assertStatus(200);
     }
 
-    public function test_update_with_valid()
+    public function testUpdateWithValid()
     {
       $author = factory(\App\Author::class)->create();
       $response = $this->patch("/authors/{$author->id}", [
@@ -100,7 +100,7 @@ class AuthorTest extends TestCase
         ->assertSee('Yamada Taro');
     }
 
-    public function test_update_with_invalid()
+    public function testUpdateWithInvalid()
     {
       $author = factory(\App\Author::class)->create();
       $this->withoutExceptionHandling();
@@ -124,7 +124,7 @@ class AuthorTest extends TestCase
       }
     }
 
-    public function test_destroy_with_valid()
+    public function testDestroyWithValid()
     {
       $author = factory(\App\Author::class)->create();
       $response = $this->delete("/authors/{$author->id}");
