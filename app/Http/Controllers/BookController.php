@@ -14,16 +14,35 @@ class BookController extends Controller
     public function index(Request $request)
     {
       $title = $request->input('title');
+      $author_id = $request->input('author_id');
+      $author_first_name = $request->input('author_first_name');
+      $author_last_name = $request->input('author_last_name');
       $query = \App\Book::query();
+      $query->leftJoin('authors', 'books.author_id', '=', 'authors.id');
 
       if (!empty($title)) {
-        $query->where('title', 'like', '%'.$title.'%');
+        $query->where('books.title', 'like', '%'.$title.'%');
+      }
+
+      if (!empty($author_id)) {
+        $query->where('books.author_id', '=', $author_id);
+      }
+
+      if (!empty($author_first_name)) {
+        $query->where('authors.first_name', 'like', '%'.$author_first_name.'%');
+      }
+
+      if (!empty($author_last_name)) {
+        $query->where('authors.last_name', 'like', '%'.$author_last_name.'%');
       }
 
       $books = $query->paginate(5);
       return view('books.index')
         ->with('books', $books)
-        ->with('title', $title);
+        ->with('title', $title)
+        ->with('author_id', $author_id)
+        ->with('author_first_name', $author_first_name)
+        ->with('author_last_name', $author_last_name);
     }
 
     /**

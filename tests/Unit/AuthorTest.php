@@ -42,7 +42,7 @@ class AuthorTest extends TestCase
     // @test
     public function test_fullName()
     {
-      $this->assertEquals('山田 太郎', $this->author->fullName());
+      $this->assertEquals('太郎 山田', $this->author->fullName());
     }
 
     // @test

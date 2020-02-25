@@ -15,6 +15,7 @@ class AuthorController extends Controller
     {
       $first_name = $request->input('first_name');
       $last_name = $request->input('last_name');
+      $book_title = $request->input('book_title');
       $query = \App\Author::query();
 
       if (!empty($first_name)) {
@@ -25,11 +26,18 @@ class AuthorController extends Controller
         $query->where('last_name', 'like', '%'.$last_name.'%');
       }
 
+      if (!empty($book_title)) {
+        $query
+          ->join('books', 'authors.id', '=', 'books.author_id')
+          ->where('books.title', 'like', '%'.$book_title.'%');
+      }
+
       $authors = $query->paginate(5);
       return view('authors.index')
         ->with('authors', $authors)
         ->with('first_name', $first_name)
-        ->with('last_name', $last_name);
+        ->with('last_name', $last_name)
+        ->with('book_title', $book_title);
     }
 
     /**

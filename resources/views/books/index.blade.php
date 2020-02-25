@@ -12,6 +12,15 @@
             <input type="text" name="title" value="{{ $title }}" class="form-control" placeholder="title" />
           </div>
           <div class="col-auto">
+            <input type="text" name="author_id" value="{{ $author_id }}" class="form-control" placeholder="author id" />
+          </div>
+          <div class="col-auto">
+            <input type="text" name="author_first_name" value="{{ $author_first_name }}" class="form-control" placeholder="author first name" />
+          </div>
+          <div class="col-auto">
+            <input type="text" name="author_last_name" value="{{ $author_last_name }}" class="form-control" placeholder="author last name" />
+          </div>
+          <div class="col-auto">
             <input type="submit" value="search" class="btn btn-primary" />
           </div>
         </div>

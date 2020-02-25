@@ -13,7 +13,7 @@ class Author extends Model
 
     public function fullName()
     {
-      return "{$this->last_name} {$this->first_name}";
+      return "{$this->first_name} {$this->last_name}";
     }
 
     public function books()

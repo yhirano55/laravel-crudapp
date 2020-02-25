@@ -48,7 +48,7 @@ class AuthorTest extends TestCase
         ->assertSee('Author was successfully created.')
         ->assertSee("Author (id: {$author->id})")
         ->assertSee($author->id)
-        ->assertSee('Yamada Taro');
+        ->assertSee('Taro Yamada');
     }
 
     public function testStoreWithInvalid()
@@ -97,7 +97,7 @@ class AuthorTest extends TestCase
         ->assertSee('Author was successfully updated.')
         ->assertSee("Author (id: {$author->id})")
         ->assertSee($author->id)
-        ->assertSee('Yamada Taro');
+        ->assertSee('Taro Yamada');
     }
 
     public function testUpdateWithInvalid()
