@@ -42,13 +42,13 @@
     </thead>
     <tbody>
       @foreach($books as $book)
-        <tr>
-          <th scope="row">{{ $book->id }}</th>
-          <td>{{ $book->title }}</td>
-          <td>{{ $book->price }}</td>
-          <td>{{ $book->author->fullName() }}</td>
-          <td>{{ $book->created_at }}</td>
-          <td>{{ $book->updated_at }}</td>
+        <tr class="book-row-{{ $book->id }}">
+          <th class="book-col-id" scope="row">{{ $book->id }}</th>
+          <td class="book-col-title">{{ $book->title }}</td>
+          <td class="book-col-price">{{ $book->price }}</td>
+          <td class="book-col-author">{{ $book->author->fullName() }}</td>
+          <td class="book-col-created_at">{{ $book->created_at }}</td>
+          <td class="book-col-updated_at">{{ $book->updated_at }}</td>
           <td><a href="{{ route('books.show', $book->id)}}" class="btn btn-secondary btn-block btn-sm">Show</a></td>
           <td><a href="{{ route('books.edit', $book->id)}}" class="btn btn-secondary btn-block btn-sm">Edit</a></td>
           <td>
