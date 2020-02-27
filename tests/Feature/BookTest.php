@@ -174,4 +174,13 @@ class BookTest extends TestCase
         ->assertStatus(200)
         ->assertSee('Book was successfully deleted.');
     }
+
+    // TODO: 内容のチェック
+    public function testExport()
+    {
+      $book = factory(\App\Book::class)->create();
+
+      $response = $this->get('/books/export');
+      $response->assertStatus(200);
+    }
 }

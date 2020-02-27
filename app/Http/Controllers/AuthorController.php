@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\AuthorExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AuthorController extends Controller
 {
@@ -133,6 +135,6 @@ class AuthorController extends Controller
      */
     public function export()
     {
-      return 'export';
+      return Excel::download(new AuthorExport, 'authors.csv');
     }
 }
