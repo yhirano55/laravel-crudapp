@@ -17,6 +17,12 @@ jobs:
             sudo docker-php-ext-install zip gd
             sudo composer self-update
 
+      - run:
+          name: Set env
+          command: |
+            cp .env.example .env
+            touch database/database.sqlite
+
       # Download and cache dependencies
       # composer cache
       - restore_cache:
@@ -44,12 +50,7 @@ jobs:
           name: Run phpstan
           command: ./vendor/bin/phpstan analyse
 
-      - run:
-          name: Prepare the database
-          command: |
-            cp .env.example .env
-            touch database/database.sqlite
-            php artisan migrate --env=testing --force
+      - run: php artisan migrate --env=testing --force
 
       - run:
           name: Run test
