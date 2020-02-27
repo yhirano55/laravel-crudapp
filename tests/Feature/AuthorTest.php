@@ -136,4 +136,13 @@ class AuthorTest extends TestCase
         ->assertStatus(200)
         ->assertSee('Author was successfully deleted.');
     }
+
+    // TODO: 内容のチェック
+    public function testExport()
+    {
+      $author = factory(\App\Author::class)->create();
+
+      $response = $this->get('/authors/export');
+      $response->assertStatus(200);
+    }
 }

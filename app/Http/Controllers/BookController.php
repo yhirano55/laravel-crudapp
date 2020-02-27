@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\BookExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookController extends Controller
 {
@@ -135,5 +137,15 @@ class BookController extends Controller
       $book->delete();
 
       return redirect(route('books.index'))->with('success', 'Book was successfully deleted.');
+    }
+
+    /**
+     * Export a listing of the resource with csv format.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+      return Excel::download(new BookExport, 'books.csv');
     }
 }

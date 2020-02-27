@@ -67,6 +67,9 @@
 
   <hr>
 
-  <p><a href="{{ route('books.create') }}" class="btn btn-primary">Create new book</a></p>
+  <p>
+    <a href="{{ route('books.create') }}" class="btn btn-primary">Create new book</a>
+    <a href="{{ route('books.export') }}" class="btn btn-secondary">Export CSV</a>
+  </p>
 </div>
 @endsection

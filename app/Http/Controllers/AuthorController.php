@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\AuthorExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AuthorController extends Controller
 {
@@ -124,5 +126,15 @@ class AuthorController extends Controller
       $author->delete();
 
       return redirect(route('authors.index'))->with('success', 'Author was successfully deleted.');
+    }
+
+    /**
+     * Export a listing of the resource with csv format.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+      return Excel::download(new AuthorExport, 'authors.csv');
     }
 }
