@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/authors/export', 'AuthorController@export')->name('authors.export');
+Route::get('/books/export', 'BookController@export')->name('books.export');
+
 Route::resources([
   'authors' => 'AuthorController',
   'books' => 'BookController',

@@ -125,4 +125,14 @@ class AuthorController extends Controller
 
       return redirect(route('authors.index'))->with('success', 'Author was successfully deleted.');
     }
+
+    /**
+     * Export a listing of the resource with csv format.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+      return 'export';
+    }
 }

@@ -136,4 +136,14 @@ class BookController extends Controller
 
       return redirect(route('books.index'))->with('success', 'Book was successfully deleted.');
     }
+
+    /**
+     * Export a listing of the resource with csv format.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+      return 'export';
+    }
 }
