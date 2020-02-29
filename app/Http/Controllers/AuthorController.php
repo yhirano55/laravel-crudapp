@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Exports\AuthorExport;
+use App\Http\Requests\StoreAuthorPost;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AuthorController extends Controller
@@ -55,22 +56,17 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreAuthorPost  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAuthorPost $request)
     {
-      $data = $request->validate([
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'image' => 'file|image|mimes:jpeg,png,jpg,gif|max:2048',
-      ]);
-
+      $validated = $request->validated();
       $author = new \App\Author();
-      $author->first_name = $data['first_name'];
-      $author->last_name = $data['last_name'];
-      if ($request->has('image')) {
-        $author->image_path = $this->uploadImage($request->file('image'));
+      $author->first_name = $validated['first_name'];
+      $author->last_name = $validated['last_name'];
+      if (!empty($validated['image'])) {
+        $author->image_path = $this->uploadImage($validated['image']);
       }
       $author->save();
 
@@ -104,23 +100,18 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreAuthorPost  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreAuthorPost $request, $id)
     {
-      $data = $request->validate([
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif|max:2048',
-      ]);
-
+      $validated = $request->validated();
       $author = \App\Author::find($id);
-      $author->first_name = $data['first_name'];
-      $author->last_name = $data['last_name'];
-      if ($request->has('image')) {
-        $author->image_path = $this->uploadImage($request->file('image'));
+      $author->first_name = $validated['first_name'];
+      $author->last_name = $validated['last_name'];
+      if (!empty($validated['image'])) {
+        $author->image_path = $this->uploadImage($validated['image']);
       }
       $author->save();
 

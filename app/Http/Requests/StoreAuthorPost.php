@@ -13,7 +13,7 @@ class StoreAuthorPost extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreAuthorPost extends FormRequest
     public function rules()
     {
         return [
-            //
+          'first_name' => 'required',
+          'last_name' => 'required',
+          'image' => 'file|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }
