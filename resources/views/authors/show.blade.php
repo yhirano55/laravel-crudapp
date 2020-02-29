@@ -22,6 +22,14 @@
       <td>{{ $author->fullName() }}</td>
     </tr>
     <tr>
+      <th>image</th>
+      <td>
+        @if (!empty($author->image_path))
+          <img src="{{ asset('storage/'.$author->image_path) }}" />
+        @endif
+      </td>
+    </tr>
+    <tr>
       <th>created at</th>
       <td>{{ $author->created_at }}</td>
     </tr>

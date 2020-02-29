@@ -63,8 +63,15 @@ class AuthorController extends Controller
       $data = $request->validate([
         'first_name' => 'required',
         'last_name' => 'required',
+        'image' => 'file|image|mimes:jpeg,png,jpg,gif|max:2048',
       ]);
-      $author = new \App\Author($data);
+
+      $author = new \App\Author();
+      $author->first_name = $data['first_name'];
+      $author->last_name = $data['last_name'];
+      if ($request->has('image')) {
+        $author->image_path = $this->uploadImage($request->file('image'));
+      }
       $author->save();
 
       return redirect(route('authors.show', $author->id))->with('success', 'Author was successfully created.');
@@ -106,9 +113,15 @@ class AuthorController extends Controller
       $data = $request->validate([
         'first_name' => 'required',
         'last_name' => 'required',
+        'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif|max:2048',
       ]);
+
       $author = \App\Author::find($id);
-      $author->fill($data);
+      $author->first_name = $data['first_name'];
+      $author->last_name = $data['last_name'];
+      if ($request->has('image')) {
+        $author->image_path = $this->uploadImage($request->file('image'));
+      }
       $author->save();
 
       return redirect(route('authors.show', $author->id))->with('success', 'Author was successfully updated.');
@@ -136,5 +149,11 @@ class AuthorController extends Controller
     public function export()
     {
       return Excel::download(new AuthorExport, 'authors.csv');
+    }
+
+    protected function uploadImage($image)
+    {
+      $filename = time() . '.' . $image->getClientOriginalExtension();
+      return $image->storeAs('author/images', $filename, 'public');
     }
 }

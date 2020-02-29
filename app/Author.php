@@ -9,6 +9,7 @@ class Author extends Model
     protected $fillable = [
       'first_name',
       'last_name',
+      'image_path',
     ];
 
     public function fullName()
