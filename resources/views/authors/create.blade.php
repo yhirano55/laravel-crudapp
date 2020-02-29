@@ -14,7 +14,7 @@
     </div>
   @endif
 
-  <form method="post" action="{{ route('authors.store') }}">
+  <form method="post" action="{{ route('authors.store') }}" enctype="multipart/form-data">
     @csrf
 
     <div class="form-group">
@@ -25,6 +25,11 @@
     <div class="form-group">
       <label for="last_name">last name</label>
       <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}" />
+    </div>
+
+    <div class="form-group">
+      <label for="image">image</label>
+      <input type="file" name="image" class="form-control" value="{{ old('image') }}" />
     </div>
 
     <input type="submit" value="Create Author" class="btn btn-primary" />
