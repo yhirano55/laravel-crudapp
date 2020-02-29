@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/authors', function () {
+  return \App\Author::all();
+});
+
+Route::get('/authors/{id}', function ($id) {
+  return \App\Author::find($id);
+});
