@@ -63,11 +63,9 @@ class AuthorController extends Controller
     {
       $validated = $request->validated();
       $author = new \App\Author();
-      $author->first_name = $validated['first_name'];
-      $author->last_name = $validated['last_name'];
-      if (!empty($validated['image'])) {
-        $author->image_path = $this->uploadImage($validated['image']);
-      }
+      $author->first_name = $request->get('first_name');
+      $author->last_name = $request->get('last_name');
+      $author->setImage($request->file('image'));
       $author->save();
 
       return redirect(route('authors.show', $author->id))->with('success', 'Author was successfully created.');
@@ -108,11 +106,10 @@ class AuthorController extends Controller
     {
       $validated = $request->validated();
       $author = \App\Author::find($id);
-      $author->first_name = $validated['first_name'];
-      $author->last_name = $validated['last_name'];
-      if (!empty($validated['image'])) {
-        $author->image_path = $this->uploadImage($validated['image']);
-      }
+      $author->first_name = $request->get('first_name');
+      $author->last_name = $request->get('last_name');
+      $author->deleteImage($request->get('image_delete_flag'));
+      $author->setImage($request->file('image'));
       $author->save();
 
       return redirect(route('authors.show', $author->id))->with('success', 'Author was successfully updated.');
@@ -140,11 +137,5 @@ class AuthorController extends Controller
     public function export()
     {
       return Excel::download(new AuthorExport, 'authors.csv');
-    }
-
-    protected function uploadImage($image)
-    {
-      $filename = time() . '.' . $image->getClientOriginalExtension();
-      return $image->storeAs('author/images', $filename, 'public');
     }
 }

@@ -12,14 +12,13 @@ class Author extends Model
       parent::boot();
 
       static::deleting(function ($author) {
-        Storage::disk('public')->delete($author->image_path);
+        $author->purgeImage();
       });
     }
 
     protected $fillable = [
       'first_name',
       'last_name',
-      'image_path',
     ];
 
     public function fullName()
@@ -30,5 +29,37 @@ class Author extends Model
     public function books()
     {
       return $this->hasMany('App\Book');
+    }
+
+    public function setImage($image)
+    {
+      if (empty($image)) {
+        return null;
+      }
+
+      if (!empty($this->image_path)) {
+        $this->purgeImage();
+      }
+      $this->image_path = $this->uploadImage($image);
+    }
+
+    public function deleteImage($flag) {
+      if (empty($flag)) {
+        return null;
+      }
+
+      $this->purgeImage();
+      $this->image_path = null;
+    }
+
+    protected function uploadImage($image)
+    {
+      $filename = time() . '.' . $image->getClientOriginalExtension();
+      return $image->storeAs('author/images', $filename, 'public');
+    }
+
+    protected function purgeImage()
+    {
+      return Storage::disk('public')->delete($this->image_path);
     }
 }

@@ -27,6 +27,7 @@ class StoreAuthorPost extends FormRequest
           'first_name' => 'required',
           'last_name' => 'required',
           'image' => 'file|image|mimes:jpeg,png,jpg,gif|max:2048',
+          'image_delete_flag' => 'string|nullable',
         ];
     }
 }

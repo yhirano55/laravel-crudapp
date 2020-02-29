@@ -30,11 +30,16 @@
 
     <div class="form-group">
       <label for="image">image</label>
-      @if (!empty($author->image_path))
-        <p><img src="{{ asset('storage/'.$author->image_path) }}" width="100" height="100" alt="" /></p>
-      @endif
       <input type="file" name="image" class="form-control" />
     </div>
+
+    @if (!empty($author->image_path))
+      <div class="form-group form-check">
+        <p><img src="{{ asset('storage/'.$author->image_path) }}" width="200" height="200" alt="" /></p>
+        <input type="checkbox" name="image_delete_flag" id="image_delete_flag" value="1" />
+        <label for="image_delete_flag">Delete image</label>
+      </div>
+    @endif
 
     <input type="submit" value="Update Author" class="btn btn-primary" />
   </form>
