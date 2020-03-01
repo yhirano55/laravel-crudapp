@@ -79,8 +79,6 @@ jobs:
           command: |
             php artisan key:generate
 
-      - run: DB_DATABASE=laravel_test php artisan migrate
-
       - run:
           name: Run test
           command: |
