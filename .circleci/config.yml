@@ -14,7 +14,6 @@ executors:
         command: mysqld --innodb-file-format=Barracuda --innodb_file_per_table=true --innodb-large-prefix=true
         environment:
           TZ: /usr/share/zoneinfo/Asia/Tokyo
-          MYSQL_DATABASE: laravel_test
 
 jobs:
   build:
@@ -60,15 +59,23 @@ jobs:
 
       - run:
           name: Run phpstan
-          command: ./vendor/bin/phpstan analyse
+          command: |
+            ./vendor/bin/phpstan analyse
 
       - run:
           name: Wait for DB
-          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+          command: |
+            dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
+
+      - run:
+          name: Create test database
+          command: |
+            mysql -h 127.0.0.1 -uroot -p --execute="CREATE DATABASE laravel_test"
 
       - run:
           name: Run test
-          command: ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml
+          command: |
+            ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml
 
       - store_test_results:
           path: ~/phpunit
