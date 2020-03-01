@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class BookTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
     use WithFaker;
 
     public function testIndex()
