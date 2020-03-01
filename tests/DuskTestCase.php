@@ -19,17 +19,9 @@ abstract class DuskTestCase extends BaseTestCase
      */
     public static function prepare()
     {
-        // static::startChromeDriver();
-    }
-
-    /**
-     * TODO: Use env
-     *
-     * @return string
-     */
-    protected function baseUrl()
-    {
-      return 'http://web:80';
+      if (empty(env('SELENIUM_REMOTE_URL'))) {
+        static::startChromeDriver();
+      }
     }
 
     /**
@@ -45,9 +37,8 @@ abstract class DuskTestCase extends BaseTestCase
             '--window-size=1920,1080',
         ]);
 
-        // FIXME: Use env: default value is localhost:9515
         return RemoteWebDriver::create(
-            'http://selenium-hub:4444/wd/hub', DesiredCapabilities::chrome()->setCapability(
+            env('SELENIUM_REMOTE_URL', 'http://localhost:9515'), DesiredCapabilities::chrome()->setCapability(
                 ChromeOptions::CAPABILITY, $options
             )
         );

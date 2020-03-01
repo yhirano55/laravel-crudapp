@@ -9,6 +9,8 @@ executors:
           LOCALE: ja
           LANG: ja_JP.UTF-8
           TZ: /usr/share/zoneinfo/Asia/Tokyo
+          APP_ENV: testing
+          DB_DATABASE: laravel_test
 
       - image: circleci/mysql:5.7
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
@@ -27,7 +29,7 @@ jobs:
           name: Install PHP dependencies
           command: |
             sudo apt update
-            sudo apt install default-mysql-client zlib1g-dev libpng-dev
+            sudo apt install default-mysql-client zlib1g-dev libpng-dev fonts-ipafont-gothic
             sudo docker-php-ext-install zip gd pdo_mysql
             sudo composer self-update
 
@@ -89,3 +91,33 @@ jobs:
 
       - store_artifacts:
           path: ~/phpunit
+
+      - run:
+          name: Install Chrome Driver
+          command: |
+            php artisan dusk:chrome-driver
+
+      - run:
+          name: Start Chrome Driver
+          command: |
+            ./vendor/laravel/dusk/bin/chromedriver-linux
+          background: true
+
+      - run:
+          name: Migrate
+          command: |
+            php artisan migrate
+
+      - run:
+          name: Run Laravel Server
+          command: |
+            php artisan serve --port=9000
+          background: true
+
+      - run:
+          name: Run Laravel Dusk Test
+          command: |
+            php artisan dusk
+
+      - store_artifacts:
+          path: ~/tests/Browser/screenshots
