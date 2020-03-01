@@ -27,8 +27,8 @@ jobs:
           name: Install PHP dependencies
           command: |
             sudo apt update
-            sudo apt install libsqlite3-dev default-mysql-client zlib1g-dev libpng-dev
-            sudo docker-php-ext-install zip gd
+            sudo apt install default-mysql-client zlib1g-dev libpng-dev
+            sudo docker-php-ext-install zip gd pdo_mysql
             sudo composer self-update
 
       - run:
