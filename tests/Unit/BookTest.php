@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class BookTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     private $book;
 
