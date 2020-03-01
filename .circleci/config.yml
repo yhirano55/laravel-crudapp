@@ -26,7 +26,7 @@ jobs:
           name: Install PHP dependencies
           command: |
             sudo apt update
-            sudo apt install zlib1g-dev libpng-dev
+            sudo apt install zlib1g-dev libpng-dev default-mysql-client
             sudo docker-php-ext-install zip gd
             sudo composer self-update
 
