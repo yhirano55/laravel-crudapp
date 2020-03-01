@@ -9,11 +9,17 @@ executors:
           LOCALE: ja
           LANG: ja_JP.UTF-8
           TZ: /usr/share/zoneinfo/Asia/Tokyo
+          DB_USERNAME: user
+          DB_PASSWORD: passw0rd
 
       - image: 'circleci/mysql:5.7'
         command: mysqld --innodb-file-format=Barracuda --innodb_file_per_table=true --innodb-large-prefix=true
         environment:
           TZ: /usr/share/zoneinfo/Asia/Tokyo
+          MYSQL_ROOT_PASSWORD: rootpw
+          MYSQL_DATABASE: laravel_test
+          MYSQL_USER: user
+          MYSQL_PASSWORD: passw0rd
 
 jobs:
   build:
@@ -66,11 +72,6 @@ jobs:
           name: Wait for DB
           command: |
             dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
-
-      - run:
-          name: Create test database
-          command: |
-            mysql -h 127.0.0.1 -uroot -p --execute="CREATE DATABASE laravel_test"
 
       - run:
           name: Run test
