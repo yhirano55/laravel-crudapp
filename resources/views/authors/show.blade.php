@@ -26,6 +26,8 @@
       <td>
         @if (!empty($author->image_path))
           <img src="{{ asset('storage/'.$author->image_path) }}" />
+        @else
+          Image Not Found
         @endif
       </td>
     </tr>

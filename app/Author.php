@@ -54,7 +54,7 @@ class Author extends Model
 
     protected function uploadImage($image)
     {
-      $filename = time() . '.' . $image->getClientOriginalExtension();
+      $filename = microtime(true) . '.' . $image->getClientOriginalExtension();
       return $image->storeAs('author/images', $filename, 'public');
     }
 
