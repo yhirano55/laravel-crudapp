@@ -16,7 +16,10 @@ class AuthorTest extends TestCase
 
     public function testIndex()
     {
-      $author = factory(\App\Author::class)->create();
+      $author = factory(\App\Author::class)->create([
+        'first_name' => 'Taro',
+        'last_name' => 'Yamada',
+      ]);
 
       $response = $this->get('/authors');
       $response
