@@ -64,7 +64,7 @@ jobs:
       - run:
           name: Run phpstan
           command: |
-            ./vendor/bin/phpstan analyse
+            vendor/bin/phpstan analyse
 
       - run:
           name: Wait for DB
@@ -84,7 +84,7 @@ jobs:
       - run:
           name: Run test
           command: |
-            ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml
+            phpdbg -qrr vendor/bin/phpunit --log-junit ~/phpunit/junit.xml --coverage-html ~/phpunit/coverage-report
 
       - store_test_results:
           path: ~/phpunit
@@ -100,7 +100,7 @@ jobs:
       - run:
           name: Start Chrome Driver
           command: |
-            ./vendor/laravel/dusk/bin/chromedriver-linux
+            vendor/laravel/dusk/bin/chromedriver-linux
           background: true
 
       - run:
