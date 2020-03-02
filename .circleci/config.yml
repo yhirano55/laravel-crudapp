@@ -29,7 +29,8 @@ jobs:
           name: Install PHP dependencies
           command: |
             sudo apt update
-            sudo apt install default-mysql-client zlib1g-dev libpng-dev fonts-ipafont-gothic
+            sudo apt install default-mysql-client zlib1g-dev libzip-dev libfreetype6-dev libpng-dev libjpeg62-turbo-dev
+            sudo docker-php-ext-configure gd --with-freetype --with-jpeg
             sudo docker-php-ext-install zip gd pdo_mysql
             sudo composer self-update
 

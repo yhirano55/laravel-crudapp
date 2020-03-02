@@ -54,7 +54,7 @@ class AuthorTest extends TestCase
       $this->assertNull($author->image_path);
 
       // with valid image
-      $image = UploadedFile::fake()->image('dummy.png');
+      $image = UploadedFile::fake()->image('dummy.jpg');
       $author->setImage($image);
       $this->assertNotNull($author->image_path);
       Storage::disk('public')->assertExists($author->image_path);
