@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 use Illuminate\Validation\ValidationException;
@@ -34,9 +36,13 @@ class AuthorTest extends TestCase
 
     public function testStoreWithValid()
     {
+      Storage::fake('public');
+      $image = UploadedFile::fake()->image('dummy.png');
+
       $response = $this->post('/authors', [
         'first_name' => 'Taro',
         'last_name' => 'Yamada',
+        'image' => $image,
       ]);
       $author = \App\Author::first();
       $response
@@ -48,7 +54,8 @@ class AuthorTest extends TestCase
         ->assertSee('Author was successfully created.')
         ->assertSee("Author (id: {$author->id})")
         ->assertSee($author->id)
-        ->assertSee('Taro Yamada');
+        ->assertSee('Taro Yamada')
+        ->assertSee($author->image_path);
     }
 
     public function testStoreWithInvalid()
@@ -83,10 +90,16 @@ class AuthorTest extends TestCase
 
     public function testUpdateWithValid()
     {
+      Storage::fake('public');
+      $image = UploadedFile::fake()->image('dummy.png');
+
       $author = factory(\App\Author::class)->create();
+      $author->setImage($image);
+
       $response = $this->patch("/authors/{$author->id}", [
         'first_name' => 'Taro',
         'last_name' => 'Yamada',
+        'image_delete_flag' => '1',
       ]);
       $response
         ->assertStatus(302)
@@ -97,7 +110,8 @@ class AuthorTest extends TestCase
         ->assertSee('Author was successfully updated.')
         ->assertSee("Author (id: {$author->id})")
         ->assertSee($author->id)
-        ->assertSee('Taro Yamada');
+        ->assertSee('Taro Yamada')
+        ->assertSee('Image Not Found');
     }
 
     public function testUpdateWithInvalid()
