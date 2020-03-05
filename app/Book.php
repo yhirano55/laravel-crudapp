@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Book extends Model
 {
+  /**
+   * @var array
+   **/
   protected $fillable = [
     'title',
     'summary',
@@ -13,8 +17,8 @@ class Book extends Model
     'author_id',
   ];
 
-  public function author()
+  public function author(): BelongsTo
   {
-    return $this->belongsTo('App\Author');
+    return $this->belongsTo(Author::class);
   }
 }
