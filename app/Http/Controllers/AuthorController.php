@@ -105,7 +105,7 @@ class AuthorController extends Controller
     public function update(StoreAuthorPost $request, $id)
     {
       $validated = $request->validated();
-      $author = \App\Author::find($id);
+      $author = \App\Author::findOrFail($id);
       $author->first_name = $request->get('first_name');
       $author->last_name = $request->get('last_name');
       $author->deleteImage($request->get('image_delete_flag'));
@@ -123,7 +123,7 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-      $author = \App\Author::find($id);
+      $author = \App\Author::findOrFail($id);
       $author->delete();
 
       return redirect(route('authors.index'))->with('success', 'Author was successfully deleted.');

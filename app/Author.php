@@ -66,7 +66,7 @@ class Author extends Model
     }
 
     /**
-     * @param ?UploadedFile $image
+     * @param UploadedFile $image
      * @return string|false
      **/
     protected function uploadImage($image)

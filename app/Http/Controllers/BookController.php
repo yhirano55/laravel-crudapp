@@ -86,7 +86,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-      $book = \App\Book::find($id);
+      $book = \App\Book::findOrFail($id);
       return view('books.show', ['book' => $book]);
     }
 
@@ -98,7 +98,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-      $book = \App\Book::find($id);
+      $book = \App\Book::findOrFail($id);
       $authors = \App\Author::all();
       return view('books.edit')->with('book', $book)->with('authors', $authors);
     }
@@ -118,7 +118,7 @@ class BookController extends Controller
         'price' => 'required|numeric',
         'author_id' => 'required|exists:App\Author,id',
       ]);
-      $book = \App\Book::find($id);
+      $book = \App\Book::findOrFail($id);
       $book->fill($data);
       $book->save();
 
@@ -133,7 +133,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-      $book = \App\Book::find($id);
+      $book = \App\Book::findOrFail($id);
       $book->delete();
 
       return redirect(route('books.index'))->with('success', 'Book was successfully deleted.');
