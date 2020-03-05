@@ -12,7 +12,7 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -46,7 +46,7 @@ class AuthorController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -57,7 +57,7 @@ class AuthorController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreAuthorPost  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreAuthorPost $request)
     {
@@ -75,7 +75,7 @@ class AuthorController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -87,7 +87,7 @@ class AuthorController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -100,7 +100,7 @@ class AuthorController extends Controller
      *
      * @param  \App\Http\Requests\StoreAuthorPost  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(StoreAuthorPost $request, $id)
     {
@@ -119,7 +119,7 @@ class AuthorController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -132,7 +132,7 @@ class AuthorController extends Controller
     /**
      * Export a listing of the resource with csv format.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function export()
     {
